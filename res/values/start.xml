@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+
+    <string-array name="start">
+	    <item>Continue</item>
+	    <item>New game</item>
+	    <item>Credits</item>
+	    <item>Quit</item>
+    </string-array>
+
+</resources>

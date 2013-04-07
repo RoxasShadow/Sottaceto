@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<dialogues>
+
+    <!-- First of all we set a background image -->
+    <dialogue event="setBackgroundImage" resource="city" />
+
+    <!-- Then a background song -->
+    <dialogue event="setBackgroundMusic" resource="fur_ambrogia" />
+
+    <!-- A simple dialogue. "Ambrogia" is the speaker's name and "girl" is his image.
+    	 Since it's the first time she appears, we gives her a fadeInWithText effect (character and textbox).  -->
+    <dialogue name="Ambrogia" character="girl" animation="fadeInWithText">Hi #name#!</dialogue>
+    <dialogue name="Ambrogia" character="girl">My name is Ambrogia, and yours?</dialogue>
+
+    <!-- A dialogue for input request. The input will be saved in the "name" variable -->
+    <dialogue name="name"     mode="input">What is your name?</dialogue>
+
+    <!-- To print a variable, just write between two # -->
+    <dialogue name="Ambrogia" character="girl">Oh, hai #name#!</dialogue>
+
+    <!-- A dialogue for choice request. The choice ("good" or "bad") will be saved in the "feel" variable -->
+    <dialogue name="Ambrogia" character="girl">How do you feel?</dialogue>
+    <dialogue name="feel"     mode="choice" choices="good|bad">Good | Bad</dialogue>
+
+    <!-- An "if" statement. If #feel# is equals to "good" than print the next dialogue, otherwise it will be skipped -->
+    <dialogue if="#feel# == 'good'" />
+       	<dialogue name="Ambrogia" character="girl">Oh, #feel# :D</dialogue>
+
+    <dialogue if="#feel# == 'bad'" />
+        <dialogue name="Ambrogia" character="girl">Oh, I'm sorry :(</dialogue>
+
+    <dialogue name="Ambrogia" character="girl">Are you a boy, or a girl?</dialogue>
+    <dialogue name="gender"   mode="choice" choices="boy|girl">Boy | Girl</dialogue>
+
+    <!-- You can too do if chains. Remember to set chained="true" to each if node -->
+    <dialogue if="#gender# == 'boy'" />
+    	<dialogue if="#feel# == 'good'" chained="true" />
+        	<dialogue name="Ambrogia" character="girl3">Sexy man :D</dialogue>
+
+    <dialogue if="#gender# == 'boy'" />
+    	 <!-- != Let's try the "not equals" operator -->
+    	<dialogue if="#feel# != 'good'" chained="true" />
+    		<dialogue name="Ambrogia" character="girl2">Oh, poor honey.</dialogue>
+
+    <dialogue if="#gender# == 'girl'" />
+        <dialogue name="Ambrogia" character="girl">Ah, 'k.</dialogue>
+
+    <dialogue name="Ambrogia" character="girl" animation="fadeOutWithText">kktnxbai!</dialogue>
+
+    <!--  We can can the background music too, obviously -->
+    <dialogue event="stopBackgroundMusic" resource="city" />
+
+    <dialogue goTo="script" />
+
+</dialogues>
