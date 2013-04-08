@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    
+
     <string-array name="credits">
         <item>Visual Novel</item>
         <item>Developer: Roxas Shadow</item>
-        <item>Story: Hell</item>
-        <item>Story: Hydride</item>
-        <item>Design: Dyarika </item>
+        <item></item>
+        <item>Contact: webmaster@giovannicapuano.net</item>
         <item></item>
         <item>Chara by Ren\'py</item>
         <item>Music by Bakemonogatari</item>
         <item></item>
         <item>A Sirius Corp. production</item>
     </string-array>
-        
+
 </resources>
