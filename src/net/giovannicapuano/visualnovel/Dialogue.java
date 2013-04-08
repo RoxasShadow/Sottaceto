@@ -161,17 +161,19 @@ public class Dialogue {
 				int id = context.getResources().getIdentifier("raw/" + event.resource + "_music", null, context.getPackageName());
 				if(id > 0) {
 					Game.mediaPlayer = MediaPlayer.create(context, id);
-					Game.mediaPlayer.setLooping(true);
-					if(Game.mute)
-						Game.mediaPlayer.setVolume(0.0f, 0.0f);
-					else
-						Game.mediaPlayer.setVolume(0.5f, 0.5f);
-					Game.mediaPlayer.start();
+					if(Game.mediaPlayer != null) {
+						Game.mediaPlayer.setLooping(true);
+						if(Game.mute)
+							Game.mediaPlayer.setVolume(0.0f, 0.0f);
+						else
+							Game.mediaPlayer.setVolume(0.5f, 0.5f);
+						Game.mediaPlayer.start();
+					}
 				}
 
 			}
 			else if(event.name == Event.EventType.STOPBACKGROUNDMUSIC) {
-				if(Game.mediaPlayer.isPlaying())
+				if(Game.mediaPlayer != null && Game.mediaPlayer.isPlaying())
 					Game.mediaPlayer.stop();
 			}
 			Dialogue.print(context);

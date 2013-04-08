@@ -53,7 +53,7 @@ public class Start extends Activity {
 		listView.setAdapter(adapter);
 
 		/* Initialization */
-		mute = true; // false;
+		mute = false;
 
 		/* Listener */
 		listView.setOnItemClickListener(new OnItemClickListener() {
