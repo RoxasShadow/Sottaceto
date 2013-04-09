@@ -67,7 +67,6 @@ public class Start extends Activity {
 				        	intent.putExtra("mute", mute);
 				        	intent.putExtra("script", script);
 				    		Start.this.startActivity(intent);
-				    		Start.this.finish();
 			        	}
 			        	else
 			        		Toast.makeText(Start.this, getResources().getString(R.string.error_no_save_available), Toast.LENGTH_LONG).show();
@@ -77,11 +76,9 @@ public class Start extends Activity {
 			        	intent.putExtra("mute", mute);
 			        	intent.putExtra("script", "");
 			    		Start.this.startActivity(intent);
-			    		Start.this.finish();
 			        	break;
 			        case 2: // credits
 			    		Start.this.startActivity(new Intent(Start.this, Credits.class));
-			    		Start.this.finish();
 						break;
 			        case 3: // quit
 			    		Start.this.finish();

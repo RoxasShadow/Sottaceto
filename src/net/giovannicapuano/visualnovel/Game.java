@@ -122,10 +122,16 @@ public class Game extends Activity {
 
 	@Override
 	public void onStop() {
-		Memory.putKeyValues(this, keyvalues);
-		MediaPlayerHandler.stop(mediaPlayers);
+		Utils.saveAll(this);
 
 		super.onStop();
+	}
+
+	@Override
+	public void onDestroy() {
+		Utils.saveAll(this);
+
+		super.onDestroy();
 	}
 
 	@Override

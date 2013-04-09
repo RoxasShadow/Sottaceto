@@ -37,6 +37,7 @@ public class Memory {
 	public static final String SCRIPT    = "lastscript.bin";
 
 	public static boolean putKeyValues(Context context, Hashtable<String, String> keyvalues) {
+		System.out.println(">>>>>>SAVING size: "+keyvalues.size());
 		try {
 			JSONObject json = new JSONObject();
 
@@ -44,6 +45,7 @@ public class Memory {
 			    json.put(entry.getKey(), entry.getValue());
 
 			FileOutputStream fos = context.openFileOutput(KEYVALUES, Context.MODE_PRIVATE);
+			System.out.println(">>>>>>JSON: "+json.toString());
 			fos.write(json.toString().getBytes());
 			fos.flush();
 			fos.close();
@@ -59,7 +61,6 @@ public class Memory {
 
 	public static Hashtable<String, String> getKeyValues(Context context) {
 		Hashtable<String, String> keyvalues = new Hashtable<String, String>();
-
 
 		try {
 			StringBuffer buffer = new StringBuffer();

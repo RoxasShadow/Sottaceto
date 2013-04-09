@@ -24,6 +24,7 @@ import net.giovannicapuano.visualnovel.Types.Event;
 import net.giovannicapuano.visualnovel.Types.GoTo;
 import net.giovannicapuano.visualnovel.Types.IfStmt;
 import net.giovannicapuano.visualnovel.Types.Player;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.view.View;
@@ -32,8 +33,13 @@ import android.view.View.OnClickListener;
 public class Dialogue {
 
 	public static void print(final Context context) {
-		if(Game.dialogues.empty())
+		if(Game.dialogues.empty()) {
+			Game.button1.setVisibility(View.GONE);
+			Game.button2.setVisibility(View.GONE);
+			Game.button3.setVisibility(View.GONE);
+			Game.editText1.setVisibility(View.GONE);
 			return;
+		}
 
 		DialogueType dialogue = Game.dialogues.pop();
 
@@ -174,11 +180,13 @@ public class Dialogue {
 		}
 		else if(type == GoTo.class) {
 			Memory.putLastScript(context, goTo.script);
+			Utils.saveAll(context);
 
         	Intent intent = new Intent(context, Game.class);
         	intent.putExtra("mute", Game.mute);
         	intent.putExtra("script", goTo.script);
     		context.startActivity(intent);
+    		((Activity)context).finish();
 		}
 	}
 }

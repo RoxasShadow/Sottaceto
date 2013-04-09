@@ -131,4 +131,9 @@ public class Utils {
 
 		return stack;
 	}
+
+	public static void saveAll(Context context) {
+		Memory.putKeyValues(context, Game.keyvalues);
+		MediaPlayerHandler.stop(Game.mediaPlayers);
+	}
 }
