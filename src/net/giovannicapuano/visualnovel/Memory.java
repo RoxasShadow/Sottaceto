@@ -20,14 +20,14 @@
 package net.giovannicapuano.visualnovel;
 
 import java.io.BufferedReader;
-import java.io.ByteArrayOutputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutput;
-import java.io.ObjectOutputStream;
 import java.util.Hashtable;
+import java.util.Iterator;
+import java.util.Map.Entry;
+
+import org.json.JSONObject;
 
 import android.content.Context;
 
@@ -36,20 +36,87 @@ public class Memory {
 	public static final String KEYVALUES = "keyvalues.bin";
 	public static final String SCRIPT    = "lastscript.bin";
 
-	@SuppressWarnings("unchecked")
+	public static boolean putKeyValues(Context context, Hashtable<String, String> keyvalues) {
+		try {
+			JSONObject json = new JSONObject();
+
+			for(Entry<String, String> entry : keyvalues.entrySet())
+			    json.put(entry.getKey(), entry.getValue());
+
+			FileOutputStream fos = context.openFileOutput(KEYVALUES, Context.MODE_PRIVATE);
+			fos.write(json.toString().getBytes());
+			fos.flush();
+			fos.close();
+
+	        return true;
+		}
+		catch(Exception e) {
+			Utils.error(e);
+			Utils.error(context, context.getString(R.string.error_saving_game));
+			return false;
+		}
+	}
+
 	public static Hashtable<String, String> getKeyValues(Context context) {
-		Hashtable<String, String> keyvalues = null;
+		Hashtable<String, String> keyvalues = new Hashtable<String, String>();
+
 
 		try {
-			ObjectInputStream ois = new ObjectInputStream(context.openFileInput(KEYVALUES));
-			keyvalues = (Hashtable<String, String>)ois.readObject();
-			ois.close();
+			StringBuffer buffer = new StringBuffer();
+
+			InputStreamReader input = new InputStreamReader(context.openFileInput(KEYVALUES));
+			BufferedReader reader = new BufferedReader(input);
+
+			String line;
+			while((line = reader.readLine()) != null)
+				buffer.append(line);
+
+			JSONObject json = new JSONObject(buffer.toString());
+			Iterator<?> keys = json.keys();
+
+			while(keys.hasNext()) {
+				String key = (String)keys.next();
+				keyvalues.put(key, json.getString(key));
+			}
 		}
 		catch(Exception e) {
 			Utils.error(e);
 		}
 
-		return keyvalues == null ? new Hashtable<String, String>() : keyvalues;
+		return keyvalues;
+	}
+
+	public static boolean putLastScript(Context context, String script) {
+		try {
+			FileOutputStream fos = context.openFileOutput(SCRIPT, Context.MODE_PRIVATE);
+			fos.write(script.getBytes());
+			fos.flush();
+			fos.close();
+
+	        return true;
+		}
+		catch(IOException e) {
+			Utils.error(e);
+			Utils.error(context, context.getString(R.string.error_saving_game));
+			return false;
+		}
+	}
+
+	public static String getLastScript(Context context) {
+		StringBuffer buffer = new StringBuffer();
+
+		try {
+			InputStreamReader input = new InputStreamReader(context.openFileInput(SCRIPT));
+			BufferedReader reader = new BufferedReader(input);
+			String line;
+			while((line = reader.readLine()) != null)
+				buffer.append(line);
+		}
+		catch(Exception e) {
+			Utils.error(e);
+		}
+
+		return buffer.toString();
 	}
 
 	/*@SuppressWarnings("unchecked")
@@ -67,46 +134,6 @@ public class Memory {
 
 		return dialogues == null ? new Stack<DialogueType>() : dialogues;
 	}*/
-
-	public static String getLastScript(Context context) {
-		StringBuffer buffer = new StringBuffer();
-
-		try {			
-			InputStreamReader input = new InputStreamReader(context.openFileInput(SCRIPT));
-			BufferedReader reader = new BufferedReader(input);
-			String line;
-			while((line = reader.readLine()) != null)
-				buffer.append(line);
-		}
-		catch(Exception e) {
-			Utils.error(e);
-		}
-
-		return buffer.toString();
-	}
-
-	public static boolean putKeyValues(Context context, Hashtable<String, String> keyvalues) {
-		try {
-			ByteArrayOutputStream bos = new ByteArrayOutputStream();
-			ObjectOutput out = new ObjectOutputStream(bos);
-			out.writeObject(keyvalues);
-			out.flush();
-
-			FileOutputStream fos = context.openFileOutput(KEYVALUES, Context.MODE_PRIVATE);
-			fos.write(bos.toByteArray());
-			fos.flush();
-			fos.close();
-			out.close();
-			bos.close();
-
-	        return true;
-		}
-		catch(IOException e) {
-			Utils.error(e);
-			Utils.error(context, context.getString(R.string.error_saving_game));
-			return false;
-		}
-	}
 
 	/*public static boolean putDialogues(Context context, Stack<DialogueType> dialogues) {
 		try {
@@ -130,20 +157,4 @@ public class Memory {
 			return false;
 		}
 	}*/
-
-	public static boolean putLastScript(Context context, String script) {
-		try {
-			FileOutputStream fos = context.openFileOutput(SCRIPT, Context.MODE_PRIVATE);
-			fos.write(script.getBytes());
-			fos.flush();
-			fos.close();
-
-	        return true;
-		}
-		catch(IOException e) {
-			Utils.error(e);
-			Utils.error(context, context.getString(R.string.error_saving_game));
-			return false;
-		}
-	}
 }

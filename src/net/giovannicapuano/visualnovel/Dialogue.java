@@ -26,7 +26,6 @@ import net.giovannicapuano.visualnovel.Types.IfStmt;
 import net.giovannicapuano.visualnovel.Types.Player;
 import android.content.Context;
 import android.content.Intent;
-import android.media.MediaPlayer;
 import android.view.View;
 import android.view.View.OnClickListener;
 
@@ -157,24 +156,19 @@ public class Dialogue {
 				if(id > 0)
 					Game.layout.setBackgroundResource(id);
 			}
-			else if(event.name == Event.EventType.SETBACKGROUNDMUSIC) {
+			else if(event.name == Event.EventType.PLAYSOUND) {
 				int id = context.getResources().getIdentifier("raw/" + event.resource + "_music", null, context.getPackageName());
 				if(id > 0) {
-					Game.mediaPlayer = MediaPlayer.create(context, id);
-					if(Game.mediaPlayer != null) {
-						Game.mediaPlayer.setLooping(true);
-						if(Game.mute)
-							Game.mediaPlayer.setVolume(0.0f, 0.0f);
-						else
-							Game.mediaPlayer.setVolume(0.5f, 0.5f);
-						Game.mediaPlayer.start();
-					}
+					float leftVolume = Game.mute ? 0.0f : 0.5f;
+					float rightVolume = Game.mute ? 0.0f : 0.5f;
+					if(!MediaPlayerHandler.create(Game.mediaPlayers, context, id, event.resource, event.loop, leftVolume, rightVolume, true))
+						Utils.error(context, context.getString(event.loop ? R.string.error_playing_music : R.string.error_playing_sound));
 				}
 
 			}
-			else if(event.name == Event.EventType.STOPBACKGROUNDMUSIC) {
-				if(Game.mediaPlayer != null && Game.mediaPlayer.isPlaying())
-					Game.mediaPlayer.stop();
+			else if(event.name == Event.EventType.STOPSOUND) {
+				if(!MediaPlayerHandler.stop(Game.mediaPlayers, event.resource))
+					Utils.error(context, context.getString(event.loop ? R.string.error_stopping_music : R.string.error_stopping_sound));
 			}
 			Dialogue.print(context);
 		}

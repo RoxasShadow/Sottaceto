@@ -62,7 +62,7 @@ public class Utils {
 	@SuppressWarnings("rawtypes")
 	public static void print(Hashtable map) {
 	    Iterator it = map.entrySet().iterator();
-	    while (it.hasNext()) {
+	    while(it.hasNext()) {
 	        Map.Entry pairs = (Map.Entry)it.next();
 	        System.out.println("<"+pairs.getKey() + "> = <" + pairs.getValue() + ">");
 	    }
@@ -71,7 +71,7 @@ public class Utils {
 	/* Join an array just like cool langs do */
 	public static String join(String[] ary, String del) {
 		int length = ary.length;
-        if (length == 0)
+        if(length == 0)
         	return "";
 
         StringBuilder sb = new StringBuilder();

@@ -18,6 +18,11 @@
     <!-- Errors -->
     <string name="error_saving_variable">Error saving variable</string>
     <string name="error_saving_game">Error saving the game</string>
+    <string name="error_loading_game">Error loading the game</string>
+    <string name="error_playing_sound">Error playing a sound</string>
+    <string name="error_playing_music">Error playing the music</string>
+    <string name="error_stopping_sound">Error stopping a sound</string>
+    <string name="error_stopping_music">Error stopping the music</string>
     <string name="error_reading_script">Error reading the script</string>
     <string name="error_no_save_available">No saves available</string>
     <string name="title_activity_chapters">Chapters</string>

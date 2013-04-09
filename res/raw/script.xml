@@ -4,12 +4,12 @@
     <!-- First of all we set a background image -->
     <dialogue event="setBackgroundImage" resource="city" />
 
-    <!-- Then a background song -->
-    <dialogue event="setBackgroundMusic" resource="fur_ambrogia" />
+    <!-- Then we set a background music -->
+    <dialogue event="playSound" resource="fur_ambrogia" loop="true" />
 
     <!-- A simple dialogue. "Ambrogia" is the speaker's name and "girl" is his image.
     	 Since it's the first time she appears, we gives her a fadeInWithText effect (character and textbox).  -->
-    <dialogue name="Ambrogia" character="girl" animation="fadeInWithText">Hi #name#!</dialogue>
+    <dialogue name="Ambrogia" character="girl" animation="fadeInWithText">Hi!</dialogue>
     <dialogue name="Ambrogia" character="girl">My name is Ambrogia, and yours?</dialogue>
 
     <!-- A dialogue for input request. The input will be saved in the "name" variable -->
@@ -47,9 +47,10 @@
 
     <dialogue name="Ambrogia" character="girl" animation="fadeOutWithText">kktnxbai!</dialogue>
 
-    <!--  We can can the background music too, obviously -->
-    <dialogue event="stopBackgroundMusic" resource="city" />
+    <!--  We can stop the background music too, obviously -->
+    <dialogue event="stopSound" resource="fur_ambrogia" />
 
-    <dialogue goTo="script" />
+    <!-- Script is finished. Now will be loaded sequel.xml and the game will be saved. -->
+    <dialogue goTo="sequel" />
 
 </dialogues>

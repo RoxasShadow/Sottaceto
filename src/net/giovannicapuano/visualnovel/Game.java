@@ -41,6 +41,7 @@ public class Game extends Activity {
 	public static Stack<DialogueType> dialogues; // stack with all the dialogues. pop() to get the next
 
 	public static Hashtable<String, String> keyvalues; // hashtable with all the choices/inputs taken through the script
+	public static Hashtable<String, MediaPlayer> mediaPlayers; // hashtable which contains all musics and sounds with their MediaPlayer intances
 
 	public static RelativeLayout layout; // activity layout (for background)
 	public static TextView textView; // contains dialogues text
@@ -52,7 +53,6 @@ public class Game extends Activity {
 	public static MenuItem[] items; // items of android menu
 
 	public static boolean can; // support variable for IfStmt
-	public static MediaPlayer mediaPlayer; // music player
 	public static boolean mute; // set the muting for music player
 	public static String script; // script to play
 
@@ -62,8 +62,6 @@ public class Game extends Activity {
 		setContentView(R.layout.activity_chapter);
 
 		/* Initialization */
-		mediaPlayer = new MediaPlayer();
-
 		layout = (RelativeLayout)findViewById(R.id.relativeLayout1);
 		textView = (TextView)findViewById(R.id.textView);
 		imageView = (ImageView)findViewById(R.id.imageView);
@@ -74,7 +72,8 @@ public class Game extends Activity {
 
 		editTextName = null;
 		can = true;
-		
+		mediaPlayers = new Hashtable<String, MediaPlayer>();
+
 		Intent intent = getIntent();
 		mute = intent.getBooleanExtra("mute", true);
 		script = intent.getStringExtra("script");
@@ -124,7 +123,7 @@ public class Game extends Activity {
 	@Override
 	public void onStop() {
 		Memory.putKeyValues(this, keyvalues);
-		mediaPlayer.stop();
+		MediaPlayerHandler.stop(mediaPlayers);
 
 		super.onStop();
 	}
@@ -149,13 +148,13 @@ public class Game extends Activity {
 				startActivity(new Intent(this, Start.class));
 	            return true;
 	        case R.id.mute:
-	    		Game.mediaPlayer.setVolume(0.0f, 0.0f);
+	        	MediaPlayerHandler.setVolume(Game.mediaPlayers, 0.0f, 0.0f);
 	    		Game.mute = true;
 	    		items[0].setVisible(false); // mute
 	    		items[1].setVisible(true); // unmute
 	            return true;
 	        case R.id.unmute:
-	    		Game.mediaPlayer.setVolume(0.5f, 0.5f);
+	        	MediaPlayerHandler.setVolume(Game.mediaPlayers, 0.5f, 0.5f);
 	    		Game.mute = false;
 	    		items[0].setVisible(true); // mute
 	    		items[1].setVisible(false); // unmute

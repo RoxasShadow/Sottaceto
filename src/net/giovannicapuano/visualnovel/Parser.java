@@ -68,8 +68,10 @@ public class Parser {
 				else if(e.hasAttribute("event")) {
 					String event = e.getAttribute("event");
 					String resource = e.getAttribute("resource");
+					String loop = e.getAttribute("loop");
 
-					dialogues.push(new Event(event, resource));
+					Event evnt = loop == "" ? new Event(event, resource) : new Event(event, resource, loop.equals("true"));
+					dialogues.push(evnt);
 				}
 				else if(e.hasAttribute("goTo")) {
 					String script = e.getAttribute("goTo");

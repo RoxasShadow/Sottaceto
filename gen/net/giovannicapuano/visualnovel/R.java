@@ -61,26 +61,32 @@ public final class R {
     public static final class raw {
         public static final int fur_ambrogia_music=0x7f050000;
         public static final int script=0x7f050001;
+        public static final int sequel=0x7f050002;
     }
     public static final class string {
-        public static final int action_settings=0x7f08000d;
+        public static final int action_settings=0x7f080012;
         /**  System 
          */
         public static final int app_name=0x7f080000;
         public static final int character_image=0x7f080007;
-        public static final int error_no_save_available=0x7f08000b;
-        public static final int error_reading_script=0x7f08000a;
+        public static final int error_loading_game=0x7f08000a;
+        public static final int error_no_save_available=0x7f080010;
+        public static final int error_playing_music=0x7f08000c;
+        public static final int error_playing_sound=0x7f08000b;
+        public static final int error_reading_script=0x7f08000f;
         public static final int error_saving_game=0x7f080009;
         /**  Errors 
          */
         public static final int error_saving_variable=0x7f080008;
+        public static final int error_stopping_music=0x7f08000e;
+        public static final int error_stopping_sound=0x7f08000d;
         /**  Menu 
          */
         public static final int home=0x7f080001;
         public static final int mute=0x7f080003;
         public static final int next=0x7f080002;
         public static final int title_activity_chapter1=0x7f080006;
-        public static final int title_activity_chapters=0x7f08000c;
+        public static final int title_activity_chapters=0x7f080011;
         /**  Activities 
          */
         public static final int title_activity_credits=0x7f080005;
