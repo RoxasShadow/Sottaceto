@@ -1,6 +1,6 @@
 Sottaceto
 ==============================================================
-Game engine to make in a simple way Visual Novels for Android.
+Game engine to make in a simple way Visual Novels for Android. I made a porting in HTML5/javascript for internet browsers too called [sottolio](https://github.com/RoxasShadow/sottolio).
 
 How the engine works
 -------------------
